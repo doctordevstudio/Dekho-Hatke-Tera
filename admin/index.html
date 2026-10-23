@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dekho Hatke · Admin</title>
+<link rel="stylesheet" href="/admin/assets/style.css">
+</head>
+<body>
+  <div id="login" class="screen">
+    <form id="loginForm" class="card login-card">
+      <h1>Dekho Hatke</h1>
+      <p class="muted">Admin panel</p>
+      <input name="u" placeholder="Username" autocomplete="username" required>
+      <input name="p" type="password" placeholder="Password" autocomplete="current-password" required>
+      <button type="submit">Sign in</button>
+      <p id="loginErr" class="err"></p>
+    </form>
+  </div>
+
+  <div id="app" class="screen hidden">
+    <nav class="sidebar">
+      <div class="brand">Dekho&nbsp;Hatke</div>
+      <button data-tab="users" class="navbtn active">Users</button>
+      <button data-tab="devices" class="navbtn">Devices</button>
+      <button data-tab="messages" class="navbtn">Messages</button>
+      <button data-tab="settings" class="navbtn">Settings</button>
+      <button id="logoutBtn" class="navbtn logout">Logout</button>
+    </nav>
+    <main class="content">
+
+      <section id="tab-users" class="tab">
+        <div class="toolbar">
+          <input id="userSearch" placeholder="Search by name or license key…">
+          <button id="userSearchBtn">Search</button>
+        </div>
+        <table class="tbl">
+          <thead><tr><th>Name</th><th>License key</th><th>Plan</th><th>Expires</th><th>Devices</th><th>Last seen</th><th>Status</th></tr></thead>
+          <tbody id="userRows"></tbody>
+        </table>
+      </section>
+
+      <section id="tab-devices" class="tab hidden">
+        <p class="muted">Devices with failed attempts, blocks, bans or shadow-ban flags.</p>
+        <table class="tbl">
+          <thead><tr><th>Device ID</th><th>Model</th><th>Fails</th><th>Blocked until</th><th>Banned</th><th>Shadow</th><th>Actions</th></tr></thead>
+          <tbody id="deviceRows"></tbody>
+        </table>
+      </section>
+
+      <section id="tab-messages" class="tab hidden">
+        <div class="grid2">
+          <div class="card">
+            <h3>About Us <span class="muted">(HTML, image URLs load automatically)</span></h3>
+            <textarea id="m_about" rows="6"></textarea>
+          </div>
+          <div class="card">
+            <h3>Privacy Policy</h3>
+            <textarea id="m_privacy" rows="6"></textarea>
+          </div>
+          <div class="card">
+            <h3>Contact Us</h3>
+            <textarea id="m_contact" rows="6"></textarea>
+          </div>
+          <div class="card">
+            <h3>Share App</h3>
+            <textarea id="m_share" rows="4" placeholder="Share message HTML"></textarea>
+            <input id="m_share_url" placeholder="Share button URL" style="margin-top:8px">
+          </div>
+        </div>
+        <button id="saveMessages" class="primary">Save messages</button>
+        <span id="msgSaved" class="ok"></span>
+      </section>
+
+      <section id="tab-settings" class="tab hidden">
+        <div class="grid2">
+          <div class="card">
+            <h3>Maintenance</h3>
+            <label><input type="checkbox" id="s_maint_on"> Enabled</label>
+            <input id="s_maint_msg" placeholder="Maintenance message">
+            <input id="s_maint_code" type="number" placeholder="HTTP status code (e.g. 503)">
+          </div>
+          <div class="card">
+            <h3>App Update</h3>
+            <label><input type="checkbox" id="s_upd_on"> Show update dialog</label>
+            <input id="s_upd_msg" placeholder="Update message">
+            <input id="s_upd_btn" placeholder="Button text (e.g. Update Now)">
+            <input id="s_upd_url" placeholder="Update URL">
+            <input id="s_minvc" type="number" placeholder="Minimum version code (force-update below this)">
+          </div>
+          <div class="card">
+            <h3>Telegram</h3>
+            <input id="s_tg" placeholder="Telegram URL (license key / no-key button)">
+          </div>
+        </div>
+        <button id="saveSettings" class="primary">Save settings</button>
+        <span id="setSaved" class="ok"></span>
+      </section>
+    </main>
+  </div>
+
+  <div id="userModal" class="modal hidden">
+    <div class="modal-box">
+      <button id="closeModal" class="closeX">&times;</button>
+      <div id="userModalBody"></div>
+    </div>
+  </div>
+
+<script src="/admin/assets/app.js"></script>
+</body>
+</html>
